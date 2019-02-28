@@ -16,7 +16,18 @@ BST::BST(int k, double p){
   left = nullptr; right = nullptr;
   first = k; last = k; //start and end are root for singleton
 }
+BST::BST(BST &b2){
+  key = b2.getKey();
+  prob = b2.getProb();
+  cost = b2.getCost();
+  left = b2.getLeft();
+  right = b2.getRight();
+  first = b2.getFirst();
+  last = b2.getLast();
+}
+  
 
+  
 // private methods
 void BST::visit() const{
   cout << key << ": " << cost << endl;
@@ -24,11 +35,26 @@ void BST::visit() const{
 bool BST::isLeaf() const{
   return left == nullptr && right == nullptr;
 }
-/* TO DO */
+
+double BST::getSumProb(){
+  cout << "in getSumProb" << endl;
+  if (isLeaf())
+    return prob;
+  double sum = 0;
+  if (left != nullptr)
+    sum += left -> getSumProb();
+  if (right != nullptr)
+    sum += right -> getSumProb();
+  cout << sum << endl;
+  return sum;
+}
+
+
 void BST::calculateCost(BST* justAdded){
   // happens when a node is added to left or right of current
   // current prob + total cost of node added + sum of all nodes in tree added
-
+  // to do
+  cout << "Calculate cost here" << endl;
 }
 
 /* Accessors */
@@ -37,6 +63,8 @@ double BST::getCost(){ return cost; }
 double BST::getProb(){ return prob; }
 int BST::getFirst(){ return first; }
 int BST::getLast(){ return last; }
+BST* BST::getLeft() { return left; }
+BST* BST::getRight() { return right;}
 
 /* Mutators */
 bool BST::addLeft(BST* l){
@@ -59,13 +87,4 @@ void BST::inOrder(){
     right->inOrder();
 }
 
-int main(){ //for testing of calculate cost
-  BST* one = new BST(4,2.5);
-  BST* two = new BST(5, 1.2);
-  BST* three = new BST(1, .8);
-  BST* four = new BST(8, .9);
-  two->addRight(four);
-  one->addLeft(three);
-  one->addRight(two);
-  one->inOrder();
-}
+

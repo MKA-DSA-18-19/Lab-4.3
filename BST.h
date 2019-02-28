@@ -24,7 +24,9 @@ class BST{
   bool isLeaf() const;
 
   void calculateCost(BST* justAdded);
+  double getSumProb();
   
+
  public:
   int key;
   double cost; //cost of whole tree
@@ -33,7 +35,7 @@ class BST{
   int last; //farthest right number
   explicit BST(int k, double p);
   //need a copy constructor
-  
+  explicit BST(BST &b2);
   
 
   /* Accessors */
@@ -43,7 +45,10 @@ class BST{
   int getFirst();
   int getLast();
   void inOrder();
+  BST* getLeft();
+  BST* getRight();
 
+  
   /* Mutators */
   bool addLeft(BST* l);
   bool addRight(BST* r);
