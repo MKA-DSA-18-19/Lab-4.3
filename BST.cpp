@@ -2,6 +2,7 @@
  * Fall 2018
  * DSA
  * AMMENDED FOR USE IN OPTIMIZING BST
+ * STARTER CODE
  */
 #include <iostream>
 #include "BST.h"
@@ -37,15 +38,13 @@ bool BST::isLeaf() const{
 }
 
 double BST::getSumProb(){
-  cout << "in getSumProb" << endl;
   if (isLeaf())
     return prob;
-  double sum = 0;
+  double sum = prob;
   if (left != nullptr)
     sum += left -> getSumProb();
   if (right != nullptr)
     sum += right -> getSumProb();
-  cout << sum << endl;
   return sum;
 }
 
@@ -53,8 +52,6 @@ double BST::getSumProb(){
 void BST::calculateCost(BST* justAdded){
   // happens when a node is added to left or right of current
   // current prob + total cost of node added + sum of all nodes in tree added
-  // to do
-  cout << "Calculate cost here" << endl;
 }
 
 /* Accessors */
@@ -68,12 +65,16 @@ BST* BST::getRight() { return right;}
 
 /* Mutators */
 bool BST::addLeft(BST* l){
+  //cout << "IN ADD LEFT" << endl;
+  if (l == nullptr) return false;
   assert(l->getKey() < key);
   left = l;
   calculateCost(l);
 }
 
 bool BST::addRight(BST* r){
+  //cout << "IN ADD RIGHT" <<endl;
+  if (r == nullptr) return false;
   assert(r->getKey() > key);
   right = r;
   calculateCost(r);
@@ -87,4 +88,24 @@ void BST::inOrder(){
     right->inOrder();
 }
 
+/*
+int main(){ // use this to make sure getCost works properly
+  BST* one = new BST(4, .1);
+  BST* two = new BST(10, .2);
+  BST* three = new BST(2, .4);
+  BST* four = new BST(8, .3);
+  BST* five = new BST(3, .15);
+  BST* six = new BST(1, .9);
+  three -> addLeft(six);
+  three -> addRight(five);
+  one -> addLeft(three);
+  cout << one -> getCost() << endl;
+  two -> addLeft(four);
+  one -> addRight(two);
 
+  one -> inOrder();
+
+}
+
+
+*/
